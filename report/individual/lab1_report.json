@@ -1,0 +1,167 @@
+{
+ "seed": 3537,
+ "predictions": {
+  "ml_f1": {
+   "text": "F1 se khoang 0.87% , precision se cao hon vi du lieu cua ham it hon spam ",
+   "time": "16:33:29"
+  },
+  "ml_lr": {
+   "text": "lr=0.001 làm loss giảm rất chậm, đường loss gần như phẳng. lr=50 có bước cập nhật quá lớn nên dễ nhảy qua điểm tối ưu, làm loss dao động hoặc tăng thay vì hội tụ.",
+   "time": "16:33:34"
+  },
+  "dl_curve": {
+   "text": "val loss se chi giam trong thoi gian dau , chac tam 10 epochs , MLP se chi nhinh hon logistic regression 1 chut vi data k qua nhieu va chi dang dung BOW",
+   "time": "16:33:44"
+  },
+  "dl_relu": {
+   "text": "bo ReLU hai lop Linear lien tiep tuong duong mot lop Linear, nen F1 se gan logistic regression va co the thap hon MLP co ReLU.",
+   "time": "16:33:50"
+  },
+  "emb_search": {
+   "text": "embedding se tim thay chu yeu cac tin spam vi no nhan ra y nghia trung thuong va yeu cau reply du cau khong chua cac tu free, win, prize",
+   "time": "16:36:02"
+  },
+  "emb_tricky": {
+   "text": "chac chan la encoder + logreg doan dung nhieu hon vi co ebedding co the hieu duoc ngu canh , con bow rat de bi lua , co the 1 tin la ham nhung vo tinh chua nhieu tu spam cx bi danh la spam",
+   "time": "16:37:06"
+  },
+  "llm_models": {
+   "text": "model lon se co F1 tam 0.95, con model nho tam 0.90, chenh nhau it hon vi bai nay cx kha don gian va SUB chi co 40 tin. Model lon co the dat hon model nho tam 2-3 lan.",
+   "time": "16:37:09"
+  },
+  "llm_fewshot": {
+   "text": "few-shot se tang F1 nhe hoac giu nguyen so voi zero-shot vi 4 vi du giup model hieu cach chia spam va ham ro hon. Nma zero-shot da ghi yeu cau kha ro nen co the ket qua k thay doi nhieu. Chi phi moi tin chac tang tam 2-3 lan vi prompt phai kem them 4 vi du.",
+   "time": "16:37:09"
+  },
+  "tradeoff": {
+   "text": "bow + LogReg va bow + MLP se nam tren duong Pareto , Encoder + kNN chac nam ben phai moc SLA 50 ms va bi lan at Hai model encoder con lai dat SLA nhung co the bi BoW + MLP lan at vi F1 tren SUB bang nhau ma cham hon",
+   "time": "16:38:19"
+  },
+  "hard_eval": {
+   "text": "Toi doan BoW + LogReg dung khoang 55%, BoW + MLP khoang 60 Embedding + kNN khoang 60%, Embedding + LogReg va MLP khoang 65-70% LLM khoang 70-80%. BoW chac kho nhat voi nhom ne tu khoa con LLM chac kho nhat voi prompt injection.",
+   "time": "16:38:33"
+  }
+ },
+ "checks": {
+  "1.1 vectorize": true,
+  "1.2 sigmoid / predict_proba": true,
+  "1.3 train_logreg": true,
+  "1.4 metrics": true,
+  "2.1 build_mlp": true,
+  "2.2 train_mlp": true,
+  "3.1–3.2 cosine / top_k_similar": true,
+  "3.3 knn_predict": true,
+  "4.2–4.3 prompt / parse_label": true,
+  "4.1 + 4.4 call_openai / llm_classify_batch": true,
+  "tính tay: baseline_accuracy": true,
+  "tính tay: sigmoid_0": true,
+  "tính tay: f1_example": true,
+  "tính tay: cosine_example": true,
+  "tính tay: llm_cost_per_day": true
+ },
+ "experiments": [
+  {
+   "key": "ml_f1",
+   "time": "16:33:29"
+  },
+  {
+   "key": "ml_lr",
+   "time": "16:33:34"
+  },
+  {
+   "key": "dl_curve",
+   "time": "16:33:44"
+  },
+  {
+   "key": "dl_relu",
+   "time": "16:33:50"
+  },
+  {
+   "key": "emb_search",
+   "time": "16:36:02"
+  },
+  {
+   "key": "emb_tricky",
+   "time": "16:37:06"
+  },
+  {
+   "key": "llm_models",
+   "time": "16:37:09"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "16:37:09"
+  },
+  {
+   "key": "tradeoff",
+   "time": "16:38:22"
+  },
+  {
+   "key": "hard_eval",
+   "time": "16:38:34"
+  }
+ ],
+ "challenge": 3,
+ "results": {
+  "1. BoW + LogReg (tự code)": {
+   "accuracy": 0.9690322580645161,
+   "precision": 1.0,
+   "recall": 0.7623762376237624,
+   "f1": 0.8651685393258427,
+   "f1_SUB": 0.8571428571428571,
+   "train_s": 3.646844142998816,
+   "msg_per_s": 7632.5427988398105,
+   "p50_ms": 0.054297499445965514,
+   "p95_ms": 0.1653875492593215,
+   "usd_per_1k": 0.0
+  },
+  "2. BoW + MLP (deep learning)": {
+   "accuracy": 0.984516129032258,
+   "precision": 1.0,
+   "recall": 0.8811881188118812,
+   "f1": 0.9368421052631579,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 5.803523469998254,
+   "msg_per_s": 46140.56774676431,
+   "p50_ms": 0.17756649958755588,
+   "p95_ms": 0.2287588009494354,
+   "usd_per_1k": 0.0
+  },
+  "3a. Encoder (MiniLM) + kNN": {
+   "accuracy": 0.9741935483870968,
+   "precision": 0.8932038834951457,
+   "recall": 0.9108910891089109,
+   "f1": 0.9019607843137256,
+   "f1_SUB": 0.9230769230769231,
+   "train_s": 79.74411229399993,
+   "msg_per_s": 37.447942936838665,
+   "p50_ms": 42.56727449956088,
+   "p95_ms": 63.343506500859796,
+   "usd_per_1k": 0.0
+  },
+  "3b. Encoder (MiniLM) + LogReg": {
+   "accuracy": 0.984516129032258,
+   "precision": 0.968421052631579,
+   "recall": 0.9108910891089109,
+   "f1": 0.9387755102040817,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 80.20643205499982,
+   "msg_per_s": 41.33731804135091,
+   "p50_ms": 30.540642999767442,
+   "p95_ms": 56.085001850715344,
+   "usd_per_1k": 0.0
+  },
+  "3c. Encoder (MiniLM) + MLP head": {
+   "accuracy": 0.9858064516129033,
+   "precision": 0.9787234042553191,
+   "recall": 0.9108910891089109,
+   "f1": 0.9435897435897436,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 80.81046105899986,
+   "msg_per_s": 43.587525876471084,
+   "p50_ms": 26.732036000794324,
+   "p95_ms": 40.54819199945996,
+   "usd_per_1k": 0.0
+  }
+ }
+}
